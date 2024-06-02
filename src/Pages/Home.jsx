@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { searchForPeople, searchForShows } from "../api/tvMaze";
 import SearchForm from "./components/SearchForm";
+import ShowGrid from "./components/shows/ShowGrid";
+import ActorsGrid from "./components/actors/ActorsGrid";
 
 const Home = () => {
 
@@ -35,14 +37,16 @@ const Home = () => {
             )
         }
 
+        if(apiData?.length ===0){
+            return <div>No result</div>
+        }
+
         if(apiData){
-            return  apiData.map((data) =>(
-                <div key = {data.show.id}>{data.show.name}</div>
-            ))
+            return apiData[0].show ? <ShowGrid shows = {apiData}/>: <ActorsGrid actors = {apiData}/>
 
     }
     return null;
-}
+};
 
     return (
         <div>
